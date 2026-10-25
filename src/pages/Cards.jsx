@@ -8,8 +8,7 @@ import { drawCard, W, H } from '../cardDraw'
 import Table from '../components/Table'
 
 const MAX = 120
-const RAW_URL = import.meta.env.VITE_SCAN_URL || ''
-const BASE = RAW_URL.replace(/\/?$/, '/')
+
 
 function monthRange() {
   const t = today()
@@ -50,12 +49,12 @@ export default function Cards() {
         if (data) photo = await createImageBitmap(data)
       }
     } catch (e) { /* photo na mile to blank frame */ }
-    const url = await QRCode.toDataURL(BASE + '#t=' + s.token, { errorCorrectionLevel: 'M', margin: 2, width: 576 })
+    const url = await QRCode.toDataURL(s.token, { errorCorrectionLevel: 'M', margin: 2, width: 576 })
     return { s, photo, qr: await loadImg(url), logo, from: range[0], to: range[1] }
   }
 
   async function generate() {
-    if (!RAW_URL) return setMsg('VITE_SCAN_URL set nahi hai (.env / Cloudflare variables)')
+  
     if (!sel.size) return setMsg('Pehle students select karo')
     if (range[0] > range[1]) return setMsg('Valid from, valid to se pehle hona chahiye')
     setBusy(true)
