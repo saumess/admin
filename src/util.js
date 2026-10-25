@@ -8,7 +8,11 @@ export const fmtT = (t) =>
   })
 
 export function toCsv(rows, cols) {
-  const q = (v) => '"' + String(v ?? '').replace(/"/g, '""') + '"'
+  const q = (v) => {
+    let s = String(v ?? '')
+    if (/^[=+@\t\r]|^-[^0-9.]/.test(s)) s = "'" + s
+    return '"' + s.replace(/"/g, '""') + '"'
+  }
   return '\ufeff' + [cols.join(',')].concat(rows.map((r) => cols.map((c) => q(r[c])).join(','))).join('\r\n')
 }
 

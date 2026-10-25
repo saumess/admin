@@ -5,8 +5,9 @@ import Dashboard from './pages/Dashboard'
 import Scans from './pages/Scans'
 import Students from './pages/Students'
 import Reports from './pages/Reports'
+import Cards from './pages/Cards'
 
-const TABS = { Dashboard, Scans, Students, Reports }
+const TABS = { Dashboard, Scans, Students, Cards, Reports }
 
 export default function App() {
   const [session, setSession] = useState(undefined)
